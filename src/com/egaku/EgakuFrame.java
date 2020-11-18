@@ -7,6 +7,8 @@ import java.awt.*;
 import java.io.IOException;
 
 import static com.egaku.panels.TitlePanel.drawTitle;
+import javax.swing.*;
+import java.awt.*;
 
 public class EgakuFrame extends JFrame {
 
@@ -53,4 +55,10 @@ public class EgakuFrame extends JFrame {
         }
     }
 
+    public void test() {
+        pane.render((g) -> {
+            g.setColor(new Color(50,150,50));
+            g.fillRect(100,100,600,400);
+        });
+    }
 }

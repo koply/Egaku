@@ -16,7 +16,6 @@ public class EgakuPane extends JPanel {
     protected void paintComponent(Graphics normalg) {
         super.paintComponent(normalg);
         Graphics2D g = (Graphics2D) normalg;
-
         picasso.paint(g);
         g.dispose();
     }
