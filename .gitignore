@@ -1,5 +1,2 @@
-*.iml
-*.jar
-target/
-out/
-.idea/
+# Project exclude paths
+/out/

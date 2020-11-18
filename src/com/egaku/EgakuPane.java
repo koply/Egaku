@@ -10,17 +10,18 @@ public class EgakuPane extends JPanel {
         setLayout(null);
     }
 
-    private Picasso picasso;
+    private IPicasso picasso;
 
     @Override
     protected void paintComponent(Graphics normalg) {
         super.paintComponent(normalg);
         Graphics2D g = (Graphics2D) normalg;
+
         picasso.paint(g);
         g.dispose();
     }
 
-    public void render(Picasso picasso) {
+    public void render(IPicasso picasso) {
         this.picasso = picasso;
         this.repaint();
     }
