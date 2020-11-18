@@ -39,4 +39,8 @@ public class DragEvent extends Mouse {
         }
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7d62c8d... First commit
