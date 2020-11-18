@@ -38,9 +38,4 @@ public class DragEvent extends Mouse {
             ef.setLocation(cp.x - dragpoint.x, cp.y - dragpoint.y);
         }
     }
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 7d62c8d... First commit
