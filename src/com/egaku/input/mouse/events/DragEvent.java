@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class DragEvent extends Mouse {
-    private EgakuFrame ef;
+    private final EgakuFrame ef;
     public DragEvent(EgakuFrame _ef){
         ef = _ef;
     }

@@ -21,6 +21,7 @@ public class EgakuFrame extends JFrame {
     }
 
     private final EgakuPane pane;
+    public final EgakuPane getPane() {return pane;}
 
     private EgakuFrame() {
         //描く

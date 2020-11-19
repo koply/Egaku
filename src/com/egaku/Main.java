@@ -1,5 +1,6 @@
 package com.egaku;
 
+import com.egaku.input.mouse.events.BrushEvent;
 import com.egaku.input.mouse.events.DragEvent;
 
 import javax.swing.*;
@@ -33,6 +34,8 @@ public class Main {
     private void implementEvents(EgakuFrame _ef){
         DragEvent dragEvent = new DragEvent(_ef);
         implementMouseEvents(_ef, dragEvent, ImplementType.All);
+        BrushEvent brushEvent = new BrushEvent();
+        implementMouseEvents(_ef, brushEvent, ImplementType.All);
     }
 
     private void implementMouseEvents(EgakuFrame _ef, EventListener eventListener, ImplementType implementType){
