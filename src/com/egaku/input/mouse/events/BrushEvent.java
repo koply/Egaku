@@ -23,8 +23,8 @@ public class BrushEvent extends Mouse {
             pane.render((g) -> {
                 lastx = e.getX();
                 lasty = e.getY();
-                g.setColor(new Color(90,170,250));
-                g.fillOval(e.getX()-9, e.getY()-9, 18,18);
+                g.setColor(new Color(220,90,90));
+                g.fillOval(e.getX()-5, e.getY()-5, 10,10);
             });
         }
     }
@@ -45,11 +45,11 @@ public class BrushEvent extends Mouse {
     public void mouseDragged(MouseEvent e) {
         if (pressed) {
             pane.render((g) -> {
-                g.setColor(new Color(90,170,250));
-                g.fillOval(e.getX()-8, e.getY()-8, 16,16);
+                g.setColor(new Color(220,90,90));
+                g.fillOval(e.getX()-5, e.getY()-5, 10,10);
 
                 if ((lastx != Integer.MIN_VALUE && lasty != Integer.MIN_VALUE) && (Math.abs(e.getX()-lastx) != 1 || Math.abs(e.getY()-lasty) != 1)) {
-                    g.setStroke(new BasicStroke(16f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+                    g.setStroke(new BasicStroke(10f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
                     g.drawLine(lastx,lasty,e.getX(),e.getY());
                     lastx=e.getX();
                     lasty=e.getY();
