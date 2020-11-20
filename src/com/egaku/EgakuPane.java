@@ -1,32 +1,38 @@
 package com.egaku;
 
+import com.egaku.utils.kValues;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
+import java.awt.image.BufferedImage;
 
 public class EgakuPane extends JPanel {
 
     public EgakuPane() {
         super();
         setLayout(null);
+        int w = kValues.frameWidth;
+        int h = kValues.frameHeight;
+        img = new BufferedImage(w, h,BufferedImage.TYPE_INT_ARGB);
     }
 
-    private final LinkedList<IPicasso> picassos = new LinkedList<>();
+    private IPicasso picas;
+    private final BufferedImage img;
 
     @Override
     protected void paintComponent(Graphics normalg) {
         super.paintComponent(normalg);
-        Graphics2D g = (Graphics2D) normalg;
-        for (IPicasso p : picassos) {
-            p.paint(g);
-        }
+
+        Graphics2D g = (Graphics2D) img.getGraphics();
+        picas.paint(g);
         g.dispose();
+
+        normalg.drawImage(img,0,0,null);
+        normalg.dispose();
     }
 
-    // TODO: tüm interface'leri listeye eklemek yerine ekranın son ss'i alınıp onu yazdıracağız. ondan sonra da interface çalıştırılacak
-
     public void render(IPicasso picasso) {
-        picassos.add(picasso);
+        picas = picasso;
         this.repaint();
     }
 }
