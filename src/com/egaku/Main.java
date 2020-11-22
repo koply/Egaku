@@ -106,12 +106,12 @@ public class Main {
 
             @Override
             public void dragEventPanel(int x, int y) {
-                _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(x - _ef.getColorPickerPanel().getX(),y - _ef.getColorPickerPanel().getY())));
+                _ef.getColorPickerPanel().setPickColorLocation(x, y, _ef);
             }
 
             @Override
             public void clickEvent(int x, int y) {
-                _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(x - _ef.getColorPickerPanel().getX(),y - _ef.getColorPickerPanel().getY())));
+                _ef.getColorPickerPanel().setPickColorLocation(x, y, _ef);
             }
         };
         implementMouseEvents(_ef, colorPickEvent, ImplementType.All);

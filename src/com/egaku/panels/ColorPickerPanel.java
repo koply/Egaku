@@ -12,13 +12,13 @@ import java.util.TimerTask;
 public class ColorPickerPanel {
 
     int x = kValues.frameWidth - 200, y = kValues.frameHeight - 300, width = 200, height = 300,
-    selectedX = 0, selectedY = 0;
+    selectedX = x, selectedY = y+20;
     boolean changed = false;
 
     public ColorPickerPanel() {
     }
 
-    public void draw(Graphics2D g, Graphics normalg){
+    public void draw(Graphics2D g){
         final Color UPPER_LEFT = new Color(1.0f, 0.0f, 0.0f, 1.0f);
         final Color UPPER_RIGHT = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         final Color LOWER_LEFT = new Color(0.0f, 0.0f, 1.0f, 1.0f);
@@ -34,6 +34,9 @@ public class ColorPickerPanel {
         g.fillRect(0,0, width, 20);
 
         this.changed = false;
+    }
+    public void drawPickerCursor(Graphics2D g){
+        g.fillOval(this.selectedX, this.selectedY, 10,10);
     }
 
     public int getHeight() {
@@ -61,37 +64,42 @@ public class ColorPickerPanel {
     }
 
     public void setPickColorLocation(int x, int y, EgakuFrame _ef){
-        if(x < 0 || x > _ef.getPane().getWidth()-_ef.getColorPickerPanel().getWidth()){
-            if(x < 0)   x = 0;
-            else x = _ef.getPane().getWidth()-_ef.getColorPickerPanel().getWidth();
+        final int lastX = this.x, lastY = this.y;
+        if(x < lastX || x > lastX+getWidth()-10){
+            if(x < lastX)   x = lastX;
+            else x = lastX+getWidth()-10;
         }
-        if(y < 20 || y > _ef.getPane().getHeight()-_ef.getColorPickerPanel().getHeight()){
-            if(y < 20)   y = 20;
-            else y = _ef.getPane().getHeight()-_ef.getColorPickerPanel().getHeight();
+        if(y < lastY+20 || y > lastY+getHeight()-10){
+            if(y < lastY+20)   y = lastY+20;
+            else y = lastY+getHeight()-10;
         }
+
+        int realX = x - _ef.getColorPickerPanel().getX(), realY = y - _ef.getColorPickerPanel().getY();
+        _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(realX, realY)));
 
         final int oldX = this.selectedX, oldY = this.selectedY;
         this.selectedX = x;
         this.selectedY = y;
         this.changed = true;
-        _ef.getPane().repaint(oldX, oldY, _ef.getColorPickerPanel().getWidth()+x, _ef.getColorPickerPanel().getHeight()+y);
+        _ef.getPane().repaint(lastX, lastY, getWidth()+lastX, getHeight()+lastY);
     }
 
     public void setLocation(int x, int y, EgakuFrame _ef){
-        if(x < 0 || x > _ef.getPane().getWidth()-_ef.getColorPickerPanel().getWidth()){
+        if(x < 0 || x > _ef.getPane().getWidth()-getWidth()){
             if(x < 0)   x = 0;
-            else x = _ef.getPane().getWidth()-_ef.getColorPickerPanel().getWidth();
+            else x = _ef.getPane().getWidth()-getWidth();
         }
-        if(y < 20 || y > _ef.getPane().getHeight()-_ef.getColorPickerPanel().getHeight()){
+        if(y < 20 || y > _ef.getPane().getHeight()-getHeight()){
             if(y < 20)   y = 20;
-            else y = _ef.getPane().getHeight()-_ef.getColorPickerPanel().getHeight();
+            else y = _ef.getPane().getHeight()-getHeight();
         }
 
         final int oldX = this.x, oldY = this.y;
         this.x = x;
         this.y = y;
         this.changed = true;
-        _ef.getPane().repaint(oldX, oldY, _ef.getColorPickerPanel().getWidth()+x, _ef.getColorPickerPanel().getHeight()+y);
+        _ef.getPane().repaint(oldX, oldY, getWidth()+x, getHeight()+y);
+        setPickColorLocation(this.selectedX+(x-oldX), this.selectedY+(y-oldY), _ef);
         //_ef.getPane().render(this::draw);
     }
 

@@ -33,9 +33,13 @@ public class EgakuPane extends JPanel {
         normalg.drawImage(img,0,0,null);
 
         g = (Graphics2D) colorPickerImage.getGraphics();
-        EgakuFrame.getInstance().getColorPickerPanel().draw(g, normalg);
+        EgakuFrame.getInstance().getColorPickerPanel().draw(g);
         g.dispose();
         normalg.drawImage(colorPickerImage, EgakuFrame.getInstance().getColorPickerPanel().getX(), EgakuFrame.getInstance().getColorPickerPanel().getY(),null);
+
+        g = (Graphics2D) normalg;
+        EgakuFrame.getInstance().getColorPickerPanel().drawPickerCursor(g);
+        g.dispose();
 
         normalg.dispose();
     }
