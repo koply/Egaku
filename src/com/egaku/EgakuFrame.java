@@ -15,7 +15,6 @@ public class EgakuFrame extends JFrame {
     public Font oswaldfont = null;
 
     public static EgakuFrame getInstance() {
-        if (instance == null) instance = new EgakuFrame();
         return instance;
     }
 
@@ -24,15 +23,16 @@ public class EgakuFrame extends JFrame {
     private final ColorPickerPanel colorPickerPanel;
     public final ColorPickerPanel getColorPickerPanel() {return colorPickerPanel;}
 
-    private EgakuFrame() {
+    EgakuFrame() {
         //描く
+        instance = this;
         setTitle("Egaku Art");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(kValues.frameWidth,kValues.frameHeight);
+        colorPickerPanel = new ColorPickerPanel();
         pane = new EgakuPane();
         pane.setBounds(0,0,kValues.frameWidth,kValues.frameHeight);
-        colorPickerPanel = new ColorPickerPanel();
         add(pane);
     }
 

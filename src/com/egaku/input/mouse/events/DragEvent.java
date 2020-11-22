@@ -35,8 +35,16 @@ public class DragEvent extends Mouse implements IDragEvent {
     public void mouseDragged(MouseEvent e) {
         if(dragging){
             Point cp = e.getLocationOnScreen();
-            event(cp, dragpoint.x, dragpoint.y);
-            eventOnScreen(e.getX(), e.getY());
+            dragEventWindow(cp, dragpoint.x, dragpoint.y);
+            dragEventPanel(e.getX(), e.getY());
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getY() >= getMinY() && e.getY() <= getMaxY() &&
+                e.getX() >= getMinX() && e.getX() <= getMaxX()) {
+            clickEvent(e.getX(), e.getY());
         }
     }
 
@@ -59,11 +67,17 @@ public class DragEvent extends Mouse implements IDragEvent {
         return 0;
     }
 
+
     @Override
-    public void event(Point cp, int x, int y) {
+    public void dragEventWindow(Point cp, int x, int y) {
     }
 
     @Override
-    public void eventOnScreen(int x, int y) {
+    public void dragEventPanel(int x, int y) {
+    }
+
+    @Override
+    public void clickEvent(int x, int y) {
+
     }
 }

@@ -26,7 +26,7 @@ public class BrushEvent extends Mouse {
             pane.render((g) -> {
                 lastx = e.getX();
                 lasty = e.getY();
-                g.setColor(new Color(194, 51, 3));
+                g.setColor(pane.getPaletteColor());
                 g.fillOval(e.getX()-(size/2), e.getY()-(size/2), size,size);
             });
         }
@@ -52,7 +52,7 @@ public class BrushEvent extends Mouse {
                 return;
             }
             pane.render((g) -> {
-                g.setColor(new Color(194, 51, 3));
+                g.setColor(pane.getPaletteColor());
                 g.fillOval(e.getX()-(size/2), e.getY()-(size/2), size,size);
 
                 if ((lastx != Integer.MIN_VALUE && lasty != Integer.MIN_VALUE) && (Math.abs(e.getX()-lastx) != 1 || Math.abs(e.getY()-lasty) != 1)) {

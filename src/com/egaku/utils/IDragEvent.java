@@ -9,6 +9,7 @@ public interface IDragEvent {
     int getMaxY();
     int getMinX();
     int getMaxX();
-    void event(Point cp, int x, int y);
-    void eventOnScreen(int x, int y);
+    void dragEventWindow(Point cp, int x, int y);
+    void dragEventPanel(int x, int y);
+    void clickEvent(int x, int y);
 }

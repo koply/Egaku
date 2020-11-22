@@ -16,6 +16,7 @@ public class Main {
     }
 
     private Main(){
+        new EgakuFrame();
         SwingUtilities.invokeLater(() -> {
             EgakuFrame.getInstance().setUndecorated(true);
             EgakuFrame.getInstance().setLocationRelativeTo(null);
@@ -50,7 +51,7 @@ public class Main {
             }
 
             @Override
-            public void event(Point cp, int x, int y) {
+            public void dragEventWindow(Point cp, int x, int y) {
                 _ef.setLocation(cp.x - x, cp.y - y);
             }
         };
@@ -77,11 +78,43 @@ public class Main {
             }
 
             @Override
-            public void eventOnScreen(int x, int y) {
+            public void dragEventPanel(int x, int y) {
                 _ef.getColorPickerPanel().setLocation(x, y, _ef);
             }
         };
         implementMouseEvents(_ef, dragEventColorPicker, ImplementType.All);
+        DragEvent colorPickEvent = new DragEvent(){
+            @Override
+            public int getMinY() {
+                return _ef.getColorPickerPanel().getY() + 20;
+            }
+
+            @Override
+            public int getMaxY() {
+                return _ef.getColorPickerPanel().getY() + _ef.getColorPickerPanel().getHeight();
+            }
+
+            @Override
+            public int getMinX() {
+                return _ef.getColorPickerPanel().getX();
+            }
+
+            @Override
+            public int getMaxX() {
+                return _ef.getColorPickerPanel().getX() + _ef.getColorPickerPanel().getWidth();
+            }
+
+            @Override
+            public void dragEventPanel(int x, int y) {
+                _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(x - _ef.getColorPickerPanel().getX(),y - _ef.getColorPickerPanel().getY())));
+            }
+
+            @Override
+            public void clickEvent(int x, int y) {
+                _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(x - _ef.getColorPickerPanel().getX(),y - _ef.getColorPickerPanel().getY())));
+            }
+        };
+        implementMouseEvents(_ef, colorPickEvent, ImplementType.All);
         BrushEvent brushEvent = new BrushEvent();
         implementMouseEvents(_ef, brushEvent, ImplementType.All);
     }

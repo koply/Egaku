@@ -14,10 +14,14 @@ public class EgakuPane extends JPanel {
         int w = kValues.frameWidth;
         int h = kValues.frameHeight;
         img = new BufferedImage(w, h,BufferedImage.TYPE_INT_ARGB);
+        colorPickerImage = new BufferedImage(EgakuFrame.getInstance().getColorPickerPanel().getWidth(), EgakuFrame.getInstance().getColorPickerPanel().getHeight(), BufferedImage.TYPE_INT_ARGB);
+        paletteColor = new Color(200, 15, 0);
     }
 
     private IPicasso picas;
     private final BufferedImage img;
+    private final BufferedImage colorPickerImage;
+    private Color paletteColor;
 
     @Override
     protected void paintComponent(Graphics normalg) {
@@ -26,12 +30,12 @@ public class EgakuPane extends JPanel {
         Graphics2D g = (Graphics2D) img.getGraphics();
         picas.paint(g);
         g.dispose();
-
         normalg.drawImage(img,0,0,null);
 
-        Graphics2D g2 = (Graphics2D) normalg;
-        EgakuFrame.getInstance().getColorPickerPanel().draw(g2);
-        g2.dispose();
+        g = (Graphics2D) colorPickerImage.getGraphics();
+        EgakuFrame.getInstance().getColorPickerPanel().draw(g, normalg);
+        g.dispose();
+        normalg.drawImage(colorPickerImage, EgakuFrame.getInstance().getColorPickerPanel().getX(), EgakuFrame.getInstance().getColorPickerPanel().getY(),null);
 
         normalg.dispose();
     }
@@ -39,5 +43,17 @@ public class EgakuPane extends JPanel {
     public void render(IPicasso picasso) {
         picas = picasso;
         this.repaint();
+    }
+
+    public Color getPaletteColor(){
+        return paletteColor;
+    }
+
+    public void setPaletteColor(Color paletteColor) {
+        this.paletteColor = paletteColor;
+    }
+
+    public BufferedImage getColorPickerImage() {
+        return colorPickerImage;
     }
 }
