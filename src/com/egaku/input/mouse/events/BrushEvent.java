@@ -7,6 +7,8 @@ import com.egaku.input.mouse.Mouse;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+import static com.egaku.utils.kValues.kDraggableHeight;
+
 public class BrushEvent extends Mouse {
 
     private boolean pressed = false;
@@ -19,7 +21,7 @@ public class BrushEvent extends Mouse {
     @Override
     public void mousePressed(MouseEvent e) {
         final int size = 10;
-        if(e.getY() > 20){
+        if(e.getY() > kDraggableHeight && !EgakuFrame.getInstance().getColorPickerPanel().isOnMe(e.getX(), e.getY())){
             pressed = true;
             pane.render((g) -> {
                 lastx = e.getX();
@@ -46,6 +48,9 @@ public class BrushEvent extends Mouse {
     public void mouseDragged(MouseEvent e) {
         final int size = 10;
         if (pressed) {
+            if(!(e.getY() > kDraggableHeight)){
+                return;
+            }
             pane.render((g) -> {
                 g.setColor(new Color(194, 51, 3));
                 g.fillOval(e.getX()-(size/2), e.getY()-(size/2), size,size);
