@@ -28,6 +28,11 @@ public class EgakuPane extends JPanel {
         g.dispose();
 
         normalg.drawImage(img,0,0,null);
+
+        Graphics2D g2 = (Graphics2D) normalg;
+        EgakuFrame.getInstance().getColorPickerPanel().draw(g2);
+        g2.dispose();
+
         normalg.dispose();
     }
 

@@ -1,5 +1,6 @@
 package com.egaku;
 
+import com.egaku.panels.ColorPickerPanel;
 import com.egaku.utils.kValues;
 
 import javax.swing.*;
@@ -7,8 +8,6 @@ import java.awt.*;
 import java.io.IOException;
 
 import static com.egaku.panels.TitlePanel.drawTitle;
-import javax.swing.*;
-import java.awt.*;
 
 public class EgakuFrame extends JFrame {
 
@@ -22,6 +21,8 @@ public class EgakuFrame extends JFrame {
 
     private final EgakuPane pane;
     public final EgakuPane getPane() {return pane;}
+    private final ColorPickerPanel colorPickerPanel;
+    public final ColorPickerPanel getColorPickerPanel() {return colorPickerPanel;}
 
     private EgakuFrame() {
         //描く
@@ -31,6 +32,7 @@ public class EgakuFrame extends JFrame {
         setSize(kValues.frameWidth,kValues.frameHeight);
         pane = new EgakuPane();
         pane.setBounds(0,0,kValues.frameWidth,kValues.frameHeight);
+        colorPickerPanel = new ColorPickerPanel();
         add(pane);
     }
 

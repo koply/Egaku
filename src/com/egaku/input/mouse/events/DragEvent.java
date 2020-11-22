@@ -2,14 +2,13 @@ package com.egaku.input.mouse.events;
 
 import com.egaku.EgakuFrame;
 import com.egaku.input.mouse.Mouse;
+import com.egaku.utils.IDragEvent;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class DragEvent extends Mouse {
-    private final EgakuFrame ef;
-    public DragEvent(EgakuFrame _ef){
-        ef = _ef;
+public class DragEvent extends Mouse implements IDragEvent {
+    public DragEvent(){
     }
 
     private boolean dragging = false;
@@ -17,7 +16,8 @@ public class DragEvent extends Mouse {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getY() >= 0 && e.getY() <= 20){
+        if(e.getY() >= getMinY() && e.getY() <= getMaxY() &&
+        e.getX() >= getMinX() && e.getX() <= getMaxX()){
             dragging = true;
             dragpoint = e.getPoint();
         }
@@ -35,7 +35,35 @@ public class DragEvent extends Mouse {
     public void mouseDragged(MouseEvent e) {
         if(dragging){
             Point cp = e.getLocationOnScreen();
-            ef.setLocation(cp.x - dragpoint.x, cp.y - dragpoint.y);
+            event(cp, dragpoint.x, dragpoint.y);
+            eventOnScreen(e.getX(), e.getY());
         }
+    }
+
+    @Override
+    public int getMinY() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxY() {
+        return 0;
+    }
+    @Override
+    public int getMinX() {
+        return 0;
+    }
+
+    @Override
+    public int getMaxX() {
+        return 0;
+    }
+
+    @Override
+    public void event(Point cp, int x, int y) {
+    }
+
+    @Override
+    public void eventOnScreen(int x, int y) {
     }
 }
