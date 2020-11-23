@@ -1,6 +1,5 @@
 package com.egaku.utils;
 
-import com.egaku.EgakuFrame;
 import com.egaku.input.mouse.MouseRegister;
 
 import java.awt.*;

@@ -1,6 +1,5 @@
 package com.egaku.input.mouse.events;
 
-import com.egaku.EgakuFrame;
 import com.egaku.input.mouse.Mouse;
 import com.egaku.input.mouse.MouseRegister;
 import com.egaku.utils.IDragEvent;

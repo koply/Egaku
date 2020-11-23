@@ -1,17 +1,14 @@
 package com.egaku.panels;
 
-import com.egaku.EgakuFrame;
-import com.egaku.utils.BiLinearGradient;
-import com.egaku.utils.kValues;
+import com.egaku.frames.colorpicker.ColorPickerFrame;
+import com.egaku.frames.egaku.EgakuFrame;
+import com.egaku.utils.KValues;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class BrushPicker {
 
-    int x = kValues.frameWidth - 200, y = kValues.frameHeight - 300, width = 200, height = 300,
+    int x = KValues.frameWidth - 200, y = KValues.frameHeight - 300, width = 200, height = 300,
             selectedX = x;
 
     public BrushPicker() {
@@ -45,7 +42,7 @@ public class BrushPicker {
         return selectedX;
     }
 
-    public void setPickColorLocation(int x, int y, EgakuFrame _ef){
+    public void setPickColorLocation(int x, int y, ColorPickerFrame _cpf, EgakuFrame _ef){
         final int lastX = this.x, lastY = this.y;
         if(x < lastX || x > lastX+getWidth()-10){
             if(x < lastX)   x = lastX;
@@ -56,15 +53,16 @@ public class BrushPicker {
             else y = lastY+getHeight()-10;
         }
 
-        int realX = x - _ef.getColorPickerPanel().getX(), realY = y - _ef.getColorPickerPanel().getY();
-        _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(realX, realY)));
+        int realX = x - _cpf.getColorPickerPanel().getX(), realY = y - _cpf.getColorPickerPanel().getY();
+        _ef.getPane().setPaletteColor(new Color(_cpf.getPane().getColorPaletteImage().getRGB(realX, realY)));
+        // _cpf'den alınan değeri main frame içindeki fielda koyar, asıl çizim paneli de rengi oradan alır
 
         final int oldX = this.selectedX;
         this.selectedX = x;
         _ef.getPane().repaint(lastX, lastY, getWidth()+lastX, getHeight()+lastY);
     }
 
-    public void setLocation(int x, int y, EgakuFrame _ef){
+    public void setLocation(int x, int y, ColorPickerFrame _cpf, EgakuFrame _ef){
         if(x < 0 || x > _ef.getPane().getWidth()-getWidth()){
             if(x < 0)   x = 0;
             else x = _ef.getPane().getWidth()-getWidth();
@@ -77,10 +75,11 @@ public class BrushPicker {
         final int oldX = this.x, oldY = this.y;
         this.x = x;
         this.y = y;
-        _ef.getPane().repaint(oldX, oldY, getWidth()+x, getHeight()+y);
-        setPickColorLocation(this.selectedX+(x-oldX), (y-oldY), _ef);
+        _cpf.getPane().repaint(oldX, oldY, getWidth()+x, getHeight()+y);
+        setPickColorLocation(this.selectedX+(x-oldX), (y-oldY), _cpf, _ef);
         //_ef.getPane().render(this::draw);
     }
+
 
     public boolean isOnMe(int x, int y){
         if(x >= this.x && x <= this.x + this.width

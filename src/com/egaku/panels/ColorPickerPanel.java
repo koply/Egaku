@@ -1,17 +1,15 @@
 package com.egaku.panels;
 
-import com.egaku.EgakuFrame;
+import com.egaku.frames.colorpicker.ColorPickerFrame;
+import com.egaku.frames.egaku.EgakuFrame;
 import com.egaku.utils.BiLinearGradient;
-import com.egaku.utils.kValues;
+import com.egaku.utils.KValues;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ColorPickerPanel {
 
-    int x = kValues.frameWidth - 200, y = kValues.frameHeight - 300, width = 200, height = 300,
+    int x = KValues.frameWidth - 200, y = KValues.frameHeight - 300, width = 200, height = 300,
     selectedX = x, selectedY = y+20;
     boolean changed = false;
 
@@ -63,7 +61,7 @@ public class ColorPickerPanel {
         return selectedY;
     }
 
-    public void setPickColorLocation(int x, int y, EgakuFrame _ef){
+    public void setPickColorLocation(int x, int y, EgakuFrame _ef, ColorPickerFrame _cpf){
         final int lastX = this.x, lastY = this.y;
         if(x < lastX || x > lastX+getWidth()-10){
             if(x < lastX)   x = lastX;
@@ -74,8 +72,8 @@ public class ColorPickerPanel {
             else y = lastY+getHeight()-10;
         }
 
-        int realX = x - _ef.getColorPickerPanel().getX(), realY = y - _ef.getColorPickerPanel().getY();
-        _ef.getPane().setPaletteColor(new Color(_ef.getPane().getColorPickerImage().getRGB(realX, realY)));
+        int realX = x - _cpf.getColorPickerPanel().getX(), realY = y - _cpf.getColorPickerPanel().getY();
+        _ef.getPane().setPaletteColor(new Color(_cpf.getPane().getColorPaletteImage().getRGB(realX, realY)));
 
         final int oldX = this.selectedX, oldY = this.selectedY;
         this.selectedX = x;
@@ -83,25 +81,6 @@ public class ColorPickerPanel {
         this.changed = true;
         //_ef.getPane().repaint(lastX, lastY, getWidth()+lastX, getHeight()+lastY);
         _ef.getPane().repaint();
-    }
-
-    public void setLocation(int x, int y, EgakuFrame _ef){
-        if(x < 0 || x > _ef.getPane().getWidth()-getWidth()){
-            if(x < 0)   x = 0;
-            else x = _ef.getPane().getWidth()-getWidth();
-        }
-        if(y < 20 || y > _ef.getPane().getHeight()-getHeight()){
-            if(y < 20)   y = 20;
-            else y = _ef.getPane().getHeight()-getHeight();
-        }
-
-        final int oldX = this.x, oldY = this.y;
-        this.x = x;
-        this.y = y;
-        this.changed = true;
-        _ef.getPane().repaint(oldX, oldY, getWidth()+x, getHeight()+y);
-        setPickColorLocation(this.selectedX+(x-oldX), this.selectedY+(y-oldY), _ef);
-        //_ef.getPane().render(this::draw);
     }
 
     public boolean isOnMe(int x, int y){

@@ -1,4 +1,4 @@
-package com.egaku;
+package com.egaku.frames.egaku;
 
 import java.awt.*;
 

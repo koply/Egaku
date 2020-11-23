@@ -1,14 +1,8 @@
 package com.egaku.input.mouse;
 
-import com.egaku.EgakuFrame;
-import com.egaku.input.mouse.events.BrushEvent;
-import com.egaku.input.mouse.events.DragEvent;
-
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.EventListener;
 
 public class Mouse implements MouseListener, MouseMotionListener {
 

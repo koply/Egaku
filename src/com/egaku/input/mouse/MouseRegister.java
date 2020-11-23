@@ -1,6 +1,7 @@
 package com.egaku.input.mouse;
 
-import com.egaku.EgakuFrame;
+import com.egaku.frames.colorpicker.ColorPickerFrame;
+import com.egaku.frames.egaku.EgakuFrame;
 import com.egaku.input.mouse.events.BrushEvent;
 import com.egaku.input.mouse.events.DragEvent;
 
@@ -22,7 +23,15 @@ public class MouseRegister {
         All,
     }
 
-    public void implementEvents(EgakuFrame _ef){
+    private final EgakuFrame _ef;
+    private final ColorPickerFrame _cpf;
+
+    public MouseRegister(EgakuFrame _ef, ColorPickerFrame _cpf) {
+        this._ef = _ef;
+        this._cpf = _cpf;
+    }
+
+    public void implementEvents(){
         DragEvent dragEvent = new DragEvent(MouseEventType.FrameDrag){
             @Override
             public int getMinY() {
@@ -48,59 +57,59 @@ public class MouseRegister {
         DragEvent dragEventColorPicker = new DragEvent(MouseEventType.ColorPickerDrag){
             @Override
             public int getMinY() {
-                return _ef.getColorPickerPanel().getY();
+                return _cpf.getColorPickerPanel().getY();
             }
 
             @Override
             public int getMaxY() {
-                return _ef.getColorPickerPanel().getY() + 20;
+                return _cpf.getColorPickerPanel().getY() + 20;
             }
 
             @Override
             public int getMinX() {
-                return _ef.getColorPickerPanel().getX();
+                return _cpf.getColorPickerPanel().getX();
             }
 
             @Override
             public int getMaxX() {
-                return _ef.getColorPickerPanel().getX() + _ef.getColorPickerPanel().getWidth();
+                return _cpf.getColorPickerPanel().getX() + _cpf.getColorPickerPanel().getWidth();
             }
 
             @Override
             public void dragEventPanel(int x, int y) {
-                _ef.getColorPickerPanel().setLocation(x, y, _ef);
+                //_cpf.getColorPickerPanel().setLocation(x, y, _ef);
             }
         };
         implementMouseEvents(_ef, dragEventColorPicker, ImplementType.All);
         DragEvent colorPickEvent = new DragEvent(MouseEventType.ColorPickerColorPick){
             @Override
             public int getMinY() {
-                return _ef.getColorPickerPanel().getY() + 20;
+                return _cpf.getColorPickerPanel().getY() + 20;
             }
 
             @Override
             public int getMaxY() {
-                return _ef.getColorPickerPanel().getY() + _ef.getColorPickerPanel().getHeight();
+                return _cpf.getColorPickerPanel().getY() + _cpf.getColorPickerPanel().getHeight();
             }
 
             @Override
             public int getMinX() {
-                return _ef.getColorPickerPanel().getX();
+                return _cpf.getColorPickerPanel().getX();
             }
 
             @Override
             public int getMaxX() {
-                return _ef.getColorPickerPanel().getX() + _ef.getColorPickerPanel().getWidth();
+                return _cpf.getColorPickerPanel().getX() + _cpf.getColorPickerPanel().getWidth();
             }
 
             @Override
             public void dragEventPanel(int x, int y) {
-                _ef.getColorPickerPanel().setPickColorLocation(x, y, _ef);
+                _cpf.getColorPickerPanel().setPickColorLocation(x, y, _ef, _cpf);
             }
 
             @Override
             public void pressEvent(int x, int y) {
-                _ef.getColorPickerPanel().setPickColorLocation(x, y, _ef);
+                _cpf.getColorPickerPanel().setPickColorLocation(x, y, _ef, _cpf);
             }
         };
         implementMouseEvents(_ef, colorPickEvent, ImplementType.All);
