@@ -3,6 +3,7 @@ package com.egaku.input.mouse.events;
 import com.egaku.EgakuFrame;
 import com.egaku.EgakuPane;
 import com.egaku.input.mouse.Mouse;
+import com.egaku.input.mouse.MouseRegister;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,7 @@ import static com.egaku.utils.kValues.kDraggableHeight;
 public class BrushEvent extends Mouse {
 
     private boolean pressed = false;
+    private MouseRegister.MouseEventType myType = MouseRegister.MouseEventType.Brush;
     private final EgakuPane pane;
 
     public BrushEvent() {
@@ -20,13 +22,16 @@ public class BrushEvent extends Mouse {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        final int size = 10;
+        if( DragEvent.eventType != null) return;
         if(e.getY() > kDraggableHeight && !EgakuFrame.getInstance().getColorPickerPanel().isOnMe(e.getX(), e.getY())){
+            DragEvent.eventType = myType;
+            final int size = 10;
             pressed = true;
+            final Color lastColor = pane.getPaletteColor();
             pane.render((g) -> {
                 lastx = e.getX();
                 lasty = e.getY();
-                g.setColor(pane.getPaletteColor());
+                g.setColor(lastColor);
                 g.fillOval(e.getX()-(size/2), e.getY()-(size/2), size,size);
             });
         }
@@ -41,18 +46,21 @@ public class BrushEvent extends Mouse {
 
         lastx = Integer.MIN_VALUE;
         lasty = Integer.MIN_VALUE;
-
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if(myType != DragEvent.eventType){
+            return;
+        }
         final int size = 10;
         if (pressed) {
             if(!(e.getY() > kDraggableHeight)){
                 return;
             }
+            final Color lastColor = pane.getPaletteColor();
             pane.render((g) -> {
-                g.setColor(pane.getPaletteColor());
+                g.setColor(lastColor);
                 g.fillOval(e.getX()-(size/2), e.getY()-(size/2), size,size);
 
                 if ((lastx != Integer.MIN_VALUE && lasty != Integer.MIN_VALUE) && (Math.abs(e.getX()-lastx) != 1 || Math.abs(e.getY()-lasty) != 1)) {
