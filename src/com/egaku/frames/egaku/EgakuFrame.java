@@ -1,12 +1,13 @@
 package com.egaku.frames.egaku;
 
+import com.egaku.ui.EgakuFrameTitle;
 import com.egaku.utils.KValues;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import static com.egaku.panels.TitlePanel.drawTitle;
+import static com.egaku.utils.GraphicUtil.addAntialias;
 
 public class EgakuFrame extends JFrame {
 
@@ -33,15 +34,11 @@ public class EgakuFrame extends JFrame {
         pane.setBounds(0,0, KValues.frameWidth, KValues.frameHeight);
         add(pane);
         pane.render((g) -> {
-            g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            addAntialias(g);
 
             g.setColor(new Color(141, 141, 141));
             g.fillRect(0,0,getWidth(),getHeight());
-            drawTitle(g);
+            EgakuFrameTitle.draw(g);
         });
     }
 

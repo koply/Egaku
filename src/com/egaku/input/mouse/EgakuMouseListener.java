@@ -1,4 +1,4 @@
-package com.egaku.input.mouse.events;
+package com.egaku.input.mouse;
 
 import com.egaku.input.mouse.Mouse;
 import com.egaku.input.mouse.MouseRegister;
@@ -7,13 +7,11 @@ import com.egaku.utils.IDragEvent;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class DragEvent extends Mouse implements IDragEvent {
-    protected DragEvent(MouseRegister.MouseEventType myType){
-        this.myType = myType;
+public class EgakuMouseListener extends Mouse implements IDragEvent {
+    protected EgakuMouseListener(){
     }
 
-    private MouseRegister.MouseEventType myType;
-    static MouseRegister.MouseEventType eventType = null;
+    public static MouseRegister.MouseEventType eventType = null;
     private boolean dragging = false;
     private Point dragpoint = null;
 
@@ -22,7 +20,7 @@ public class DragEvent extends Mouse implements IDragEvent {
         if(eventType != null) return;
         if(e.getY() >= getMinY() && e.getY() <= getMaxY() &&
         e.getX() >= getMinX() && e.getX() <= getMaxX()){
-            eventType = myType;
+            eventType = getEventType();
             dragging = true;
             dragpoint = e.getPoint();
             pressEvent(e.getX(), e.getY());
@@ -40,7 +38,7 @@ public class DragEvent extends Mouse implements IDragEvent {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(myType != eventType){
+        if(getEventType() != eventType){
             return;
         }
         if(dragging){
@@ -80,7 +78,7 @@ public class DragEvent extends Mouse implements IDragEvent {
 
     @Override
     public MouseRegister.MouseEventType getEventType() {
-        return eventType;
+        return null;
     }
 
     @Override
@@ -101,7 +99,4 @@ public class DragEvent extends Mouse implements IDragEvent {
 
     }
 
-    public MouseRegister.MouseEventType getMyType() {
-        return myType;
-    }
 }

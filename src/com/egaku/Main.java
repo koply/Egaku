@@ -19,7 +19,12 @@ public class Main {
             EgakuFrame.getInstance().prepareUI();
             EgakuFrame.getInstance().setVisible(true);
             EgakuFrame.getInstance().prepareFonts();
-            new MouseRegister(EgakuFrame.getInstance(), ColorPickerFrame.getInstance()).implementEvents();
+
+            MouseRegister.getInstance().implementEvents();
+
+            ColorPickerFrame.getInstance().setUndecorated(true);
+            ColorPickerFrame.getInstance().setLocationRelativeTo(null);
+            ColorPickerFrame.getInstance().prepareUI();
             ColorPickerFrame.getInstance().setVisible(true);
         });
     }

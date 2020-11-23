@@ -2,13 +2,14 @@ package com.egaku.input.mouse.events;
 
 import com.egaku.frames.egaku.EgakuFrame;
 import com.egaku.frames.egaku.EgakuPane;
+import com.egaku.input.mouse.EgakuMouseListener;
 import com.egaku.input.mouse.Mouse;
 import com.egaku.input.mouse.MouseRegister;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import static com.egaku.utils.KValues.kDraggableHeight;
+import static com.egaku.utils.KValues.egakuFrameDragHeight;
 
 public class BrushEvent extends Mouse {
 
@@ -22,9 +23,9 @@ public class BrushEvent extends Mouse {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if( DragEvent.eventType != null) return;
-        if(e.getY() > kDraggableHeight){
-            DragEvent.eventType = myType;
+        if( EgakuMouseListener.eventType != null) return;
+        if(e.getY() > egakuFrameDragHeight){
+            EgakuMouseListener.eventType = myType;
             final int size = 10;
             pressed = true;
             final Color lastColor = pane.getPaletteColor();
@@ -50,12 +51,12 @@ public class BrushEvent extends Mouse {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(myType != DragEvent.eventType){
+        if(myType != EgakuMouseListener.eventType){
             return;
         }
         final int size = 10;
         if (pressed) {
-            if(!(e.getY() > kDraggableHeight)){
+            if(!(e.getY() > egakuFrameDragHeight)){
                 return;
             }
             final Color lastColor = pane.getPaletteColor();

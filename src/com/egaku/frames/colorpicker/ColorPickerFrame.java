@@ -1,9 +1,11 @@
 package com.egaku.frames.colorpicker;
 
-import com.egaku.panels.ColorPickerPanel;
+import com.egaku.frames.egaku.EgakuPane;
+import com.egaku.ui.EgakuFrameTitle;
 import com.egaku.utils.KValues;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ColorPickerFrame extends JFrame {
 
@@ -14,23 +16,19 @@ public class ColorPickerFrame extends JFrame {
         return instance;
     }
 
-    private final ColorPickerPane colorPickerPane;
-    public ColorPickerPane getPane() { return colorPickerPane; }
+    private ColorPickerPane colorPickerPane;
+    public final ColorPickerPane getPane() { return colorPickerPane; }
 
-    private final ColorPickerPanel colorPickerPanel;
-    public final ColorPickerPanel getColorPickerPanel() { return colorPickerPanel; }
-
-    public ColorPickerFrame() {
+    private ColorPickerFrame() {
         setSize(KValues.colorPickerFrameWidth, KValues.colorPickerFrameHeight);
         setLayout(null);
-        setUndecorated(true);
-        colorPickerPane = new ColorPickerPane(this);
-        colorPickerPanel = new ColorPickerPanel();
     }
 
 
     public void prepareUI() {
-
+        colorPickerPane = new ColorPickerPane(this);
+        colorPickerPane.setBounds(0,0, KValues.colorPickerFrameWidth, KValues.colorPickerFrameHeight);
+        add(colorPickerPane);
     }
 
 
